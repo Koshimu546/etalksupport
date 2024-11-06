@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= content_for(:title) || "E Talk" %></title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title><%= content_for(:title) || "e-Talk support" %></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -16,7 +16,13 @@
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
   </head>
 
-  <body>
-    <%= yield %>
+  <body style="display: flex; flex-direction: column; min-height: 100vh; margin: 0;">
+    <%= render 'layouts/header' %>
+
+    <main style="flex: 1 0 auto; padding: 20px;">
+      <%= yield %>
+    </main>
+
+    <%= render 'layouts/footer' %>
   </body>
 </html>
