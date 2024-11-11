@@ -5,4 +5,8 @@ class ApplicationController < ActionController::Base
   def index
     redirect_to new_user_session_path unless user_signed_in?
   end
+
+  def after_sign_in_path_for(resource)
+    "/user/#{current_user.id}"
+  end
 end
