@@ -1,3 +1,14 @@
-<!-- app/views/pages/mypage.html.erb -->
-<h1>こんにちは、<%= current_user.email %> さん！</h1>
-<p>このページはあなたのマイページです。</p>
+<h1>マイページ</h1>
+
+<% if @profile.present? %>
+  <div class="profile-tile">
+    <p><strong>ユーザーネーム:</strong> <%= @profile.username %></p>
+    <p><strong>今やっていること:</strong> <%= @profile.doing %></p>
+    <p><strong>趣味:</strong> <%= @profile.hobbies %></p>
+    <p><strong>ひとこと:</strong> <%= @profile.comment %></p>
+    <%= link_to "プロフィールを編集", edit_profile_path %>
+  </div>
+<% else %>
+  <p>プロフィールを登録してください。</p>
+  <%= link_to "プロフィールを登録する", new_profile_path %>
+<% end %>

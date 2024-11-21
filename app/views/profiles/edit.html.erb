@@ -1,0 +1,22 @@
+<h1>プロフィールの編集</h1>
+<%= form_with model: @profile, local: true do |f| %>
+  <div>
+    <%= f.label :username, "ユーザーネーム" %>
+    <%= f.text_field :username %>
+  </div>
+  <div>
+    <%= f.label :doing, "今やっていること" %>
+    <%= f.text_field :doing %>
+  </div>
+  <div>
+    <%= f.label :hobbies, "趣味" %>
+    <%= f.text_field :hobbies %>
+  </div>
+  <div>
+    <%= f.label :comment, "ひとこと" %>
+    <%= f.text_area :comment %>
+  </div>
+  <div>
+    <%= f.submit "編集する" %>
+  </div>
+<% end %>

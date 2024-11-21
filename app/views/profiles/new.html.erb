@@ -1,0 +1,33 @@
+<h1>プロフィール登録</h1>
+<%= form_with model: @profile, local: true do |f| %>
+  <div>
+    <%= f.label :username, "ユーザーネーム" %>
+    <%= f.text_field :username %>
+  </div>
+  <div>
+    <%= f.label :doing, "今やっていること" %>
+    <%= f.text_field :doing %>
+  </div>
+  <div>
+    <%= f.label :hobbies, "趣味" %>
+    <%= f.text_field :hobbies %>
+  </div>
+  <div>
+    <%= f.label :comment, "ひとこと" %>
+    <%= f.text_area :comment %>
+  </div>
+  <div>
+    <%= f.submit "登録する" %>
+  </div>
+<% end %>
+
+<% if @profile.errors.any? %>
+  <div class="error-messages">
+    <h2><%= pluralize(@profile.errors.count, "error") %> prevented this profile from being saved:</h2>
+    <ul>
+      <% @profile.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>

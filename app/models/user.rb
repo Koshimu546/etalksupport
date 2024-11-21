@@ -5,6 +5,8 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable,
          :omniauthable, omniauth_providers: %i[google_oauth2]
 
+  has_one :profile, dependent: :destroy
+
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
             # ※deviseのuserカラムに nameやprofile を追加している場合は下のコメントアウトを外して使用

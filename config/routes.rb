@@ -6,6 +6,8 @@ Rails.application.routes.draw do
 
   resources :users, only: [:show]
 
+  resources :profiles, only: [:new, :create, :edit, :update]
+
   get "/help", to: "pages#help"
 
   # ルート設定: mypage をホームとして設定
