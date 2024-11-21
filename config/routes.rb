@@ -10,6 +10,10 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :profiles, only: [] do
+    resources :likes, only: [:create]
+  end
+
   # プロフィール関連のルート
   resources :profiles, only: [:new, :create, :edit, :update]
 

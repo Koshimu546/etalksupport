@@ -10,7 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_11_21_001204) do
+ActiveRecord::Schema[7.2].define(version: 2024_11_21_062601) do
+  create_table "likes", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "profile_id", null: false
+    t.string "field"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["profile_id"], name: "index_likes_on_profile_id"
+    t.index ["user_id"], name: "index_likes_on_user_id"
+  end
+
   create_table "profiles", force: :cascade do |t|
     t.string "username"
     t.string "doing"
@@ -36,5 +46,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_21_001204) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "likes", "profiles"
+  add_foreign_key "likes", "users"
   add_foreign_key "profiles", "users"
 end

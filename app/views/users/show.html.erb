@@ -2,14 +2,26 @@
 
 <% if @profile.present? %>
   <div>
-    <p><strong>ユーザーネーム:</strong> <%= @profile.username %></p>
     <p><strong>今やっていること:</strong> <%= @profile.doing %></p>
-    <p><strong>趣味:</strong> <%= @profile.hobbies %></p>
-    <p><strong>ひとこと:</strong> <%= @profile.comment %></p>
-    
-    <% if current_user == @user %>
-      <%= link_to "プロフィールを編集", edit_profile_path %>
+    <%= form_with url: profile_likes_path(@profile), method: :post, local: true do %>
+      <%= hidden_field_tag :field, "doing" %>
+      <%= submit_tag "いいね" %>
     <% end %>
+    <p>いいね数: <%= @profile.likes.where(field: "doing").count %></p>
+
+    <p><strong>趣味:</strong> <%= @profile.hobbies %></p>
+    <%= form_with url: profile_likes_path(@profile), method: :post, local: true do %>
+      <%= hidden_field_tag :field, "hobbies" %>
+      <%= submit_tag "いいね" %>
+    <% end %>
+    <p>いいね数: <%= @profile.likes.where(field: "hobbies").count %></p>
+
+    <p><strong>ひとこと:</strong> <%= @profile.comment %></p>
+    <%= form_with url: profile_likes_path(@profile), method: :post, local: true do %>
+      <%= hidden_field_tag :field, "comment" %>
+      <%= submit_tag "いいね" %>
+    <% end %>
+    <p>いいね数: <%= @profile.likes.where(field: "comment").count %></p>
   </div>
 <% else %>
   <p>プロフィールが未登録です。</p>
