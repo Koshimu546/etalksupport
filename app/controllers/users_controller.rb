@@ -10,4 +10,15 @@ class UsersController < ApplicationController
       redirect_to root_path, alert: "ユーザーが見つかりませんでした。"
     end
   end
+
+  def search
+    @query = params[:query] # 検索キーワードを取得
+    if @query.present?
+      # profilesテーブルでusernameを検索
+      @profiles = Profile.where("username LIKE ?", "%#{@query}%")
+      @users = @profiles.map(&:user) # 関連するユーザーを取得
+    else
+      @users = []
+    end
+  end  
 end

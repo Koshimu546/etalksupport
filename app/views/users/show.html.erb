@@ -1,14 +1,27 @@
-<h1>マイページ</h1>
+<h1><%= @user.profile.username %>のプロフィール</h1>
 
 <% if @profile.present? %>
-  <div class="profile-tile">
+  <div>
     <p><strong>ユーザーネーム:</strong> <%= @profile.username %></p>
     <p><strong>今やっていること:</strong> <%= @profile.doing %></p>
     <p><strong>趣味:</strong> <%= @profile.hobbies %></p>
     <p><strong>ひとこと:</strong> <%= @profile.comment %></p>
-    <%= link_to "プロフィールを編集", edit_profile_path %>
+    
+    <% if current_user == @user %>
+      <%= link_to "プロフィールを編集", edit_profile_path %>
+    <% end %>
   </div>
 <% else %>
-  <p>プロフィールを登録してください。</p>
-  <%= link_to "プロフィールを登録する", new_profile_path %>
+  <p>プロフィールが未登録です。</p>
+<% end %>
+
+<% if current_user != @user %> <!-- 自分のページではない場合のみ表示 -->
+  <%= link_to "戻る", user_path(current_user) %>
+<% end %>
+
+<h2>ユーザーを検索</h2>
+<%= form_with url: search_users_path, method: :get, local: true do |f| %>
+  <%= f.label :query, "ユーザーネームで検索" %>
+  <%= f.text_field :query %>
+  <%= f.submit "検索" %>
 <% end %>
