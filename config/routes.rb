@@ -10,6 +10,12 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :profiles, only: [:new, :create, :edit, :update] do
+    collection do
+      get 'ranking' # ランキングページのルート
+    end
+  end
+
   resources :profiles, only: [] do
     resources :likes, only: [:create]
   end

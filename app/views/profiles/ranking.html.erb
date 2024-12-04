@@ -1,0 +1,31 @@
+<h1>いいねランキング</h1>
+
+<h2>今やっていること</h2>
+<ol>
+  <% @doing_ranking.each do |profile| %>
+    <li>
+      <%= link_to profile.username, user_path(profile.user) %>
+      （いいね数: <%= profile.likes_count %>）
+    </li>
+  <% end %>
+</ol>
+
+<h2>趣味</h2>
+<ol>
+  <% @hobbies_ranking.each do |profile| %>
+    <li>
+      <%= link_to profile.username, user_path(profile.user) %>
+      （いいね数: <%= profile.likes_count %>）
+    </li>
+  <% end %>
+</ol>
+
+<h2>ひとこと</h2>
+<ol>
+  <% @comment_ranking.each do |profile| %>
+    <li>
+      <%= link_to profile.username, user_path(profile.user) %>
+      （いいね数: <%= profile.likes_count %>）
+    </li>
+  <% end %>
+</ol>

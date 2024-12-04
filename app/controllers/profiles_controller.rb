@@ -6,7 +6,6 @@ class ProfilesController < ApplicationController
     @profile = current_user.build_profile
   end
 
-  # app/controllers/profiles_controller.rb
   def create
     @profile = current_user.build_profile(profile_params)
     if @profile.save
@@ -34,6 +33,29 @@ class ProfilesController < ApplicationController
 
   def profile_params
     params.require(:profile).permit(:username, :doing, :hobbies, :comment)
+  end
+
+  def ranking
+    @doing_ranking = Profile.joins(:likes)
+                            .where(likes: { field: "doing" })
+                            .group(:id)
+                            .order('COUNT(likes.id) DESC')
+                            .limit(10)
+                            .select('profiles.*, COUNT(likes.id) AS likes_count')
+
+    @hobbies_ranking = Profile.joins(:likes)
+                              .where(likes: { field: "hobbies" })
+                              .group(:id)
+                              .order('COUNT(likes.id) DESC')
+                              .limit(10)
+                              .select('profiles.*, COUNT(likes.id) AS likes_count')
+
+    @comment_ranking = Profile.joins(:likes)
+                              .where(likes: { field: "comment" })
+                              .group(:id)
+                              .order('COUNT(likes.id) DESC')
+                              .limit(10)
+                              .select('profiles.*, COUNT(likes.id) AS likes_count')
   end
 end
 
