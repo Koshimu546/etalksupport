@@ -224,19 +224,17 @@ body {
 
 .search-form {
   display: flex;
-  align-items: center;
+  justify-content: flex-start; /* 左寄せにする */
+  align-items: center; /* 垂直方向の位置を揃える */
+  margin-bottom: 20px; /* 下に余白を追加 */
 }
 
 .search-form .form-group {
-  margin-right: 10px; /* ボタンとの間に余白を追加 */
+  margin-right: 10px; /* 入力ボックスとボタンの間に余白を追加 */
 }
 
 .search-form .form-control {
-  width: 300px; /* 検索フォームの幅を調整 */
-}
-
-.search-form .btn {
-  padding: 5px 10px;
+  width: 300px; /* 入力ボックスの幅を調整 */
 }
 
 

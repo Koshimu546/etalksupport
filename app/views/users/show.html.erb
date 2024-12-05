@@ -6,6 +6,17 @@
       プロフィールが未登録です
     <% end %>
   </h1>
+
+  <% if current_user != @user && @user.profile.present? %>
+    <% if current_user.following.include?(@user) %>
+      <%= button_to "フォロー解除", relationship_path(@user), method: :delete, class: "btn btn-danger btn-sm" %>
+    <% else %>
+      <%= button_to "このユーザーをフォローする", relationships_path(followed_id: @user.id), method: :post, class: "btn btn-primary btn-sm" %>
+    <% end %>
+  <% end %>
+</div>
+
+<div class="search-form-container">
   <div class="search-form">
     <%= form_with url: search_users_path, method: :get, local: true do |f| %>
       <div class="form-group">
@@ -59,4 +70,19 @@
 <%# 自分のページではない場合のみ「戻る」リンクを表示 %>
 <% if current_user != @user %>
   <%= link_to "戻る", user_path(current_user), class: "btn btn-primary mt-3" %>
+<% end %>
+
+<% if current_user == @user %>
+  <h2>フォロー中のユーザー</h2>
+  <% if current_user.following.any? %>
+    <ul>
+      <% current_user.following.each do |user| %>
+        <li>
+          <%= link_to user.profile&.username || "名前未設定", user_path(user) %>
+        </li>
+      <% end %>
+    </ul>
+  <% else %>
+    <p>フォローしているユーザーはいません。</p>
+  <% end %>
 <% end %>

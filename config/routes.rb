@@ -28,6 +28,9 @@ Rails.application.routes.draw do
 
   # ルート設定: mypage をホームとして設定
   root "pages#mypage"
+
+  #フォロー機能
+  resources :relationships, only: [:create, :destroy]
 end
 
 
