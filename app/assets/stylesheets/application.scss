@@ -76,6 +76,38 @@ body {
   }
 }
 
+/* いいねボタンのスタイル */
+.like-form {
+  display: flex;
+  align-items: center;
+  margin-top: 5px;
+}
+
+.like-button {
+  font-size: 24px; /* ボタンのサイズ */
+  background: none;
+  border: none;
+  color: #ffd700; /* ゴールド */
+  cursor: pointer;
+  transition: transform 0.2s ease, color 0.2s ease;
+
+  &:hover {
+    transform: scale(1.2); /* ホバー時に拡大 */
+    color: #ffa500; /* ホバー時の色変更 */
+  }
+
+  &:active {
+    transform: scale(1); /* 押下時のサイズリセット */
+    color: #ff8c00; /* 押下時の色変更 */
+  }
+}
+
+.like-count {
+  font-size: 18px;
+  margin-left: 10px; /* ボタンとカウントの間の余白 */
+  color: #333; /* カウントの文字色 */
+}
+
 /* メインコンテンツに余白を設定 */
 .main-content {
   margin-top: 80px; /* ヘッダーの高さに合わせて調整 */
@@ -164,7 +196,7 @@ body {
 
 .google-btn {
   display: inline-block;
-  background-color: #db4437;
+  background-color: #fadddb;
   color: white;
   padding: 10px 20px;
   border-radius: 4px;

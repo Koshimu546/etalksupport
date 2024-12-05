@@ -18,15 +18,45 @@
 
 <div class="profile-details">
   <% if @user.profile.present? %>
-    <!-- プロフィール情報表示 -->
-    <p><strong>今やっていること:</strong> <%= @user.profile.doing.presence || "未登録" %></p>
-    <p><strong>趣味:</strong> <%= @user.profile.hobbies.presence || "未登録" %></p>
-    <p><strong>ひとこと:</strong> <%= @user.profile.comment.presence || "未登録" %></p>
+    <div>
+      <%# 「今やっていること」のセクション %>
+      <p><strong>今やっていること:</strong> <%= @user.profile.doing.presence || "未登録" %></p>
+      <%= form_with url: profile_likes_path(@user.profile), method: :post, local: true, class: "like-form" do %>
+        <%= hidden_field_tag :field, "doing" %>
+        <button type="submit" class="like-button">☆</button>
+        <span class="like-count"><%= @user.profile.likes.where(field: "doing").count %></span>
+      <% end %>
+
+      <%# 「趣味」のセクション %>
+      <p><strong>趣味:</strong> <%= @user.profile.hobbies.presence || "未登録" %></p>
+      <%= form_with url: profile_likes_path(@user.profile), method: :post, local: true, class: "like-form" do %>
+        <%= hidden_field_tag :field, "hobbies" %>
+        <button type="submit" class="like-button">☆</button>
+        <span class="like-count"><%= @user.profile.likes.where(field: "hobbies").count %></span>
+      <% end %>
+
+      <%# 「ひとこと」のセクション %>
+      <p><strong>ひとこと:</strong> <%= @user.profile.comment.presence || "未登録" %></p>
+      <%= form_with url: profile_likes_path(@user.profile), method: :post, local: true, class: "like-form" do %>
+        <%= hidden_field_tag :field, "comment" %>
+        <button type="submit" class="like-button">☆</button>
+        <span class="like-count"><%= @user.profile.likes.where(field: "comment").count %></span>
+      <% end %>
+    </div>
+
+    <%# ログイン中のユーザーが自分のプロフィールを見ている場合のみ「プロフィールを編集する」ボタンを表示 %>
+    <% if current_user == @user %>
+      <%= link_to "プロフィールを編集する", edit_profile_path(@user.profile), class: "btn btn-primary mt-3" %>
+    <% end %>
   <% else %>
     <p>プロフィールが未登録です。</p>
     <% if current_user == @user %>
-      <%= link_to "プロフィールを登録", new_profile_path, class: "btn btn-primary mt-3" %>
+      <%= link_to "プロフィールを登録する", new_profile_path, class: "btn btn-primary mt-3" %>
     <% end %>
   <% end %>
 </div>
 
+<%# 自分のページではない場合のみ「戻る」リンクを表示 %>
+<% if current_user != @user %>
+  <%= link_to "戻る", user_path(current_user), class: "btn btn-primary mt-3" %>
+<% end %>
