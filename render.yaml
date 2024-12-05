@@ -1,0 +1,22 @@
+databases:
+  - name: e-talk-support
+    databaseName: e_talk_support_8x0u
+    user: etalksupport
+    region: singapore
+
+services:
+  - type: web
+    name: etalksupport
+    env: ruby
+    region: singapore
+    plan: free
+    buildCommand: "./bin/render-build.sh"
+    startCommand: "bundle exec puma -C config/puma.rb"
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: e-talk-support
+          property: connectionString
+      - key: RAILS_MASTER_KEY
+        sync: false
+
