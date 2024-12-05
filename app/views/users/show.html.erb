@@ -1,39 +1,22 @@
-<h1><%= @user.profile.username %>のプロフィール</h1>
-
-<% if @profile.present? %>
-  <div>
-    <p><strong>今やっていること:</strong> <%= @profile.doing %></p>
-    <%= form_with url: profile_likes_path(@profile), method: :post, local: true do %>
-      <%= hidden_field_tag :field, "doing" %>
-      <%= submit_tag "いいね" %>
+<div class="user-page-header">
+  <h1><%= @user.profile.username %>のプロフィール</h1>
+  <div class="search-form">
+    <%= form_with url: search_users_path, method: :get, local: true do |f| %>
+      <div class="form-group">
+        <%= f.text_field :query, class: "form-control", placeholder: "ユーザーを検索" %>
+      </div>
+      <%= f.submit "検索", class: "btn btn-primary" %>
     <% end %>
-    <p>いいね数: <%= @profile.likes.where(field: "doing").count %></p>
-
-    <p><strong>趣味:</strong> <%= @profile.hobbies %></p>
-    <%= form_with url: profile_likes_path(@profile), method: :post, local: true do %>
-      <%= hidden_field_tag :field, "hobbies" %>
-      <%= submit_tag "いいね" %>
-    <% end %>
-    <p>いいね数: <%= @profile.likes.where(field: "hobbies").count %></p>
-
-    <p><strong>ひとこと:</strong> <%= @profile.comment %></p>
-    <%= form_with url: profile_likes_path(@profile), method: :post, local: true do %>
-      <%= hidden_field_tag :field, "comment" %>
-      <%= submit_tag "いいね" %>
-    <% end %>
-    <p>いいね数: <%= @profile.likes.where(field: "comment").count %></p>
   </div>
-<% else %>
-  <p>プロフィールが未登録です。</p>
-<% end %>
+</div>
 
-<% if current_user != @user %> <!-- 自分のページではない場合のみ表示 -->
-  <%= link_to "戻る", user_path(current_user) %>
-<% end %>
-
-<h2>ユーザーを検索</h2>
-<%= form_with url: search_users_path, method: :get, local: true do |f| %>
-  <%= f.label :query, "ユーザーネームで検索" %>
-  <%= f.text_field :query %>
-  <%= f.submit "検索" %>
-<% end %>
+<div class="profile-details">
+  <% if @user.profile.present? %>
+    <!-- プロフィール情報表示 -->
+    <p><strong>今やっていること:</strong> <%= @user.profile.doing.presence || "未登録" %></p>
+    <p><strong>趣味:</strong> <%= @user.profile.hobbies.presence || "未登録" %></p>
+    <p><strong>ひとこと:</strong> <%= @user.profile.comment.presence || "未登録" %></p>
+  <% else %>
+    <p>プロフィールが未登録です。</p>
+  <% end %>
+</div>

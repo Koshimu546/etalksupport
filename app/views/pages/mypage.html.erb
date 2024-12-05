@@ -1,6 +1,8 @@
 <% if user_signed_in? %>
-  <h1>こんにちは、<%= current_user.email %> さん！</h1>
-  <p>こちらはあなたのマイページです。</p>
+  <h2>ログイン中のアカウント：<%= current_user.email %> </h2>
+  <p>
+    <%= link_to "マイページ", user_path(current_user), class: "text-primary" %> へ
+  </p>
 <% else %>
   <h1>ようこそ！</h1>
   <p>e-talk supportでは、ログインするとマイページが表示されます。</p>

@@ -1,11 +1,12 @@
-# app/controllers/profiles_controller.rb
 class ProfilesController < ApplicationController
   before_action :authenticate_user!
 
+  # プロフィール新規作成ページ
   def new
     @profile = current_user.build_profile
   end
 
+  # プロフィールの登録処理
   def create
     @profile = current_user.build_profile(profile_params)
     if @profile.save
@@ -16,10 +17,12 @@ class ProfilesController < ApplicationController
     end
   end
 
+  # プロフィール編集ページ
   def edit
     @profile = current_user.profile
   end
 
+  # プロフィールの更新処理
   def update
     @profile = current_user.profile
     if @profile.update(profile_params)
@@ -27,35 +30,29 @@ class ProfilesController < ApplicationController
     else
       render :edit
     end
-  end  
+  end
+
+  # ランキングページ
+  def ranking
+    @doing_ranking = fetch_ranking("doing")
+    @hobbies_ranking = fetch_ranking("hobbies")
+    @comment_ranking = fetch_ranking("comment")
+  end
 
   private
 
+  # ストロングパラメータ
   def profile_params
     params.require(:profile).permit(:username, :doing, :hobbies, :comment)
   end
 
-  def ranking
-    @doing_ranking = Profile.joins(:likes)
-                            .where(likes: { field: "doing" })
-                            .group(:id)
-                            .order('COUNT(likes.id) DESC')
-                            .limit(10)
-                            .select('profiles.*, COUNT(likes.id) AS likes_count')
-
-    @hobbies_ranking = Profile.joins(:likes)
-                              .where(likes: { field: "hobbies" })
-                              .group(:id)
-                              .order('COUNT(likes.id) DESC')
-                              .limit(10)
-                              .select('profiles.*, COUNT(likes.id) AS likes_count')
-
-    @comment_ranking = Profile.joins(:likes)
-                              .where(likes: { field: "comment" })
-                              .group(:id)
-                              .order('COUNT(likes.id) DESC')
-                              .limit(10)
-                              .select('profiles.*, COUNT(likes.id) AS likes_count')
+  # 共通のランキング取得ロジック
+  def fetch_ranking(field)
+    Profile.joins(:likes)
+           .where(likes: { field: field })
+           .group(:id)
+           .order('COUNT(likes.id) DESC')
+           .limit(10)
+           .select('profiles.*, COUNT(likes.id) AS likes_count')
   end
 end
-

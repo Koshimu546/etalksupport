@@ -2,12 +2,14 @@
   <a href="/" class="logo">e-talk support</a>
   <nav class="nav">
     <% if user_signed_in? %>
-    <%= form_with url: destroy_user_session_path, method: :delete do %>
-      <button type="submit" data-confirm="ログアウトしますか？">ログアウト</button>
-    <% end %>
+      <div class="nav-actions">
+        <%= link_to "いいねランキング", ranking_profiles_path, class: "nav-button" %> <!-- ランキングページへのリンク -->
+        <%= form_with url: destroy_user_session_path, method: :delete, class: "logout-form" do %>
+          <button type="submit" class="nav-button" data-confirm="ログアウトしますか？">ログアウト</button>
+        <% end %>
+      </div>
     <% else %>
-      <%= link_to "ログイン", new_user_session_path %>
+      <%= link_to "ログイン", new_user_session_path, class: "nav-button" %>
     <% end %>
-
   </nav>
 </header>

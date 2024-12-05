@@ -18,7 +18,7 @@ body {
   align-items: center;
   padding: 1rem 2rem;
   background-color: #333;
-  height: 80px; // ヘッダーの高さを設定
+  height: 80px;
 
   .logo {
     font-size: 36px;
@@ -32,27 +32,53 @@ body {
   }
 
   .nav {
-    .home-button {
-      font-size: 18px;
-      padding: 0.5rem 1rem;
-      background-color: #fff;
-      color: #333;
-      border: none;
-      border-radius: 5px;
-      text-decoration: none;
-      cursor: pointer;
-      transition: background-color 0.3s;
+    display: flex;
+    align-items: center;
 
-      &:hover {
-        background-color: #555;
+    .nav-actions {
+      display: flex;
+      gap: 10px; /* ボタン間のスペース */
+
+      .nav-button {
+        padding: 8px 16px;
+        background-color: #fff; /* 背景色を白に設定 */
+        color: #333;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        text-decoration: none;
+        cursor: pointer;
+        transition: background-color 0.3s, color 0.3s;
+
+        &:hover {
+          background-color: #f0f0f0; /* ホバー時の背景色 */
+          color: #000;
+        }
+      }
+
+      /* ログアウトボタンの追加スタイル */
+      .logout-button {
+        display: inline-block;
+        padding: 8px 16px;
+        background-color: #fff; /* 背景色を白に設定 */
+        color: #333;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        text-decoration: none;
+        cursor: pointer;
+        transition: background-color 0.3s, color 0.3s;
+
+        &:hover {
+          background-color: #f0f0f0;
+          color: #000;
+        }
       }
     }
   }
 }
 
-// メインコンテンツに余白を設定
+/* メインコンテンツに余白を設定 */
 .main-content {
-  margin-top: 80px; // ヘッダーの高さに合わせて調整
+  margin-top: 80px; /* ヘッダーの高さに合わせて調整 */
 }
 
 /* フォームコンテナ */
@@ -150,8 +176,37 @@ body {
 }
 
 .google-btn:hover {
-  background-color: #c1351c;
+  background-color: #beaaa7;
 }
+
+.user-page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 0;
+}
+
+.user-page-header h1 {
+  margin: 0;
+}
+
+.search-form {
+  display: flex;
+  align-items: center;
+}
+
+.search-form .form-group {
+  margin-right: 10px; /* ボタンとの間に余白を追加 */
+}
+
+.search-form .form-control {
+  width: 300px; /* 検索フォームの幅を調整 */
+}
+
+.search-form .btn {
+  padding: 5px 10px;
+}
+
 
 /* フッター */
 footer {
@@ -159,6 +214,6 @@ footer {
   color: #fff;
   text-align: center;
   padding: 20px 0;
-  position: relative; /* 固定を解除してページ下部に自然に配置 */
+  position: relative;
   width: 100%;
 }

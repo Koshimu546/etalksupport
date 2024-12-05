@@ -2,30 +2,47 @@
 
 <h2>今やっていること</h2>
 <ol>
-  <% @doing_ranking.each do |profile| %>
-    <li>
-      <%= link_to profile.username, user_path(profile.user) %>
-      （いいね数: <%= profile.likes_count %>）
-    </li>
+  <% if @doing_ranking.present? %>
+    <% @doing_ranking.each do |profile| %>
+      <li>
+        <%= link_to profile.username, user_path(profile.user) %>:
+        <%= profile.doing %> （いいね数: <%= profile.likes_count %>）
+      </li>
+    <% end %>
+  <% else %>
+    <p>ランキングデータがありません。</p>
   <% end %>
 </ol>
 
 <h2>趣味</h2>
 <ol>
-  <% @hobbies_ranking.each do |profile| %>
-    <li>
-      <%= link_to profile.username, user_path(profile.user) %>
-      （いいね数: <%= profile.likes_count %>）
-    </li>
+  <% if @hobbies_ranking.present? %>
+    <% @hobbies_ranking.each do |profile| %>
+      <li>
+        <%= link_to profile.username, user_path(profile.user) %>:
+        <%= profile.hobbies %> （いいね数: <%= profile.likes_count %>）
+      </li>
+    <% end %>
+  <% else %>
+    <p>ランキングデータがありません。</p>
   <% end %>
 </ol>
 
 <h2>ひとこと</h2>
 <ol>
-  <% @comment_ranking.each do |profile| %>
-    <li>
-      <%= link_to profile.username, user_path(profile.user) %>
-      （いいね数: <%= profile.likes_count %>）
-    </li>
+  <% if @comment_ranking.present? %>
+    <% @comment_ranking.each do |profile| %>
+      <li>
+        <%= link_to profile.username, user_path(profile.user) %>:
+        <%= profile.comment %> （いいね数: <%= profile.likes_count %>）
+      </li>
+    <% end %>
+  <% else %>
+    <p>ランキングデータがありません。</p>
   <% end %>
 </ol>
+
+<!-- マイページへ戻るボタン -->
+<div class="mt-4">
+  <%= link_to "マイページへ戻る", user_path(current_user), class: "btn btn-primary" %>
+</div>
