@@ -64,7 +64,7 @@ end
 gem "devise", "~> 4.9"
 
 gem 'dotenv-rails'
-gem 'omniauth', '1.9.1'
+gem 'omniauth', '2.1.2'
 gem 'omniauth-google-oauth2' 
 gem "bootstrap-sass",  "3.4.1"
 gem "sassc-rails",     "2.1.2"
