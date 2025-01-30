@@ -68,3 +68,7 @@ gem 'omniauth', '1.9.1'
 gem 'omniauth-google-oauth2' 
 gem "bootstrap-sass",  "3.4.1"
 gem "sassc-rails",     "2.1.2"
+
+group :production do
+  gem 'unicorn', '6.0.0'
+end
