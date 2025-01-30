@@ -70,5 +70,5 @@ gem "bootstrap-sass",  "3.4.1"
 gem "sassc-rails",     "2.1.2"
 
 group :production do
-  gem 'unicorn', '6.0.0'
+  gem 'unicorn', '6.1.0'
 end
